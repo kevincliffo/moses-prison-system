@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Prisoners extends CI_Controller {
+class Prisons extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('url');
@@ -9,33 +9,31 @@ class Prisoners extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->model('model_prisoners');
+        $this->load->model('model_prisons');
 
-        $data['prisoners'] = $this->model_prisoners->getallprisoners();
+        $data['prisons'] = $this->model_prisons->getallprisons();
 
-        $data['title'] = 'Prisoner Reporting System | Prisoners';
+        $data['title'] = 'Prisoner Reporting System | Prisons';
         $data['faviconpartpath'] = base_url().'img/favicon.png';
 
         $this->load->view('includes/header', $data);
-        $this->load->view('view_prisoners', $data);
+        $this->load->view('view_prisons', $data);
 
         $this->load->view('includes/footer', $data);
     }
 
-    function addprisoner()
+    function addprison()
 
     {
-        $this->load->model('model_prisoners');
         $this->load->model('model_prisons');
 
         $data['faviconpartpath'] = base_url().'img/favicon.png';
-        $data['counties'] = $this->model_prisoners->getallcounties();
-        $data['prisons'] = $this->model_prisons->getallprisons();
+        $data['counties'] = $this->model_prisons->getallcounties();
 
-        $data['title'] = 'Prisoner Reporting System | Report Prisoner';
+        $data['title'] = 'Prisoner Reporting System | Add Prison';
 
         $this->load->view('includes/header', $data);
-        $this->load->view('view_add_prisoner', $data);
+        $this->load->view('view_add_prison', $data);
 
         $this->load->view('includes/footer', $data);
     }
@@ -45,36 +43,19 @@ class Prisoners extends CI_Controller {
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
-    function addprisonertodb()
+    function addprisontodb()
     {
-        $this->load->model('model_prisoners');
-        
-        $message = 'Prisoner Added Successfully';
-
-        $crime = $this->input->post('crime');
-        $prison = $this->input->post('prison');
-        $crimeCounty = $this->input->post('crimeCounty');
-        $firstName = $this->input->post('firstName');
-        $lastName = $this->input->post('lastName');
-        $idNumber = $this->input->post('idNumber');
-        $details = $this->input->post('details');
-        $sentenceDate = $this->input->post('sentenceDate');
-        $releaseDate = $this->input->post('releaseDate');
+        $this->load->model('model_prisons');
+        $message = 'Prison Added Successfully';
+        $county = $this->input->post('county');
+        $name = $this->input->post('prisonName');
 
         $data = array(
-            'Crime'   => $crime,
-            'CrimeCounty'   => $crimeCounty,
-            'Prison'   => $prison,
-            'IDNumber'   => $idNumber,
-            'FirstName'   => $firstName,
-            'LastName'   => $lastName,
-            'Details'   => $details,
-            'SentenceDate'  => $sentenceDate,
-            'ReleaseDate'  => $releaseDate,
+            'County'   => $county,
+            'Name'   => $name
         );
 
-        // print_r($data);die();
-        $ret = $this->model_prisoners->addtodatabase($data);
+        $ret = $this->model_prisons->addToDatabase($data);
 
         if($ret)
         {
@@ -85,41 +66,40 @@ class Prisoners extends CI_Controller {
         else
         {
             $this->session->set_flashdata('message_no', 1);
-            $this->session->set_flashdata('message', "Error adding Prisoner");
+            $this->session->set_flashdata('message', "Error adding Prison");
             $this->session->set_flashdata('hasMessage', 1);
         }
-        redirect('prisoners/addprisoner', 'refresh');
-
+        redirect('prisons/addprison', 'refresh');
     }    
 
-    function allusers()
+    function allprisons()
     {
         $this->load->model('model_users');
-        $data['users'] = $this->model_users->getallusers();
-        $data['title'] = 'Users';
+        $data['prisons'] = $this->model_prisons->getallprisons();
+        $data['title'] = 'Prisons';
         $data['faviconpartpath'] = base_url().'img/favicon.png';
 
         $this->load->view('includes/header', $data);
-        $this->load->view('view_users', $data);
+        $this->load->view('view_prisons', $data);
         $this->load->view('includes/footer', $data);
     }
 
-    function removeprisoner($id)
+    function removeprison($id)
     {
-        $this->load->model('model_prisoners');
+        $this->load->model('model_prisons');
 
-        $ret = $this->model_prisoners->deleteprisoner($id);
+        $ret = $this->model_prisons->deleteprison($id);
 
         $this->session->set_flashdata('message_no', 0);
-        $this->session->set_flashdata('message', "Prisoner Removed Successfully!");
+        $this->session->set_flashdata('message', "Prison Removed Successfully!");
         $this->session->set_flashdata('hasMessage', 1);
             
-        redirect('prisoners', 'refresh');        
+        redirect('prisons', 'refresh');        
     }
 
 	public function getPrisonersOverFilter()
 	{ 
-        $this->load->model('model_prisoners');
+        $this->load->model('model_prisons');
 
 
         $data = array(
@@ -139,7 +119,7 @@ class Prisoners extends CI_Controller {
         fwrite($file, 'NumberPlate : '.$this->input->post('NumberPlate').'\n');
         fwrite($file, 'FilterType : '.$this->input->post('FilterType').'\n');
         fclose($file);
-		$prisons = $this->model_prisoners->getPrisonersOverFilter($data);
+		$prisons = $this->model_prisons->getPrisonersOverFilter($data);
 
 		echo json_encode($prisons);
 

@@ -64,9 +64,18 @@ class Main extends CI_Controller {
     function dashboard()
     {
         if($this->session->userdata('IsLoggedIn'))
-        {        
+        {
+            $this->load->model('model_users');
+            $this->load->model('model_prisoners');
+            $this->load->model('model_prisons');
+
             $data['title'] = 'Prison Reporting System';
-            $data['prisonSummary'] = 1;
+            $data['users'] = $this->model_users->getallusers();
+            $data['userscount'] = $this->model_users->getuserscount();
+            $data['prisons'] = $this->model_prisons->getallprisons();
+            $data['prisonscount'] = $this->model_prisons->getprisonscount();
+            $data['prisoners'] = $this->model_prisoners->getallprisoners();
+            $data['prisonerscount'] = $this->model_prisoners->getprisonerscount();
 
             $data['faviconpartpath'] = base_url().'img/favicon.png';
 
@@ -81,10 +90,22 @@ class Main extends CI_Controller {
 
     }
 
+    function removeuser($id)
+    {
+        $this->load->model('model_users');
+
+        $ret = $this->model_users->deleteuser($id);
+
+        $this->session->set_flashdata('message_no', 0);
+        $this->session->set_flashdata('message', "User Removed Successfully!");
+        $this->session->set_flashdata('hasMessage', 1);
+            
+        redirect('main/allusers', 'refresh');        
+    }
+
     function getPrisonsSummary()
     {
         $this->load->model('model_prisons');
-
 
         $prisonSummary = $this->model_prisons->getPrisonsSummary();
 
@@ -151,13 +172,22 @@ class Main extends CI_Controller {
             'UserType' => 'User'
         );
 
-        $res = $this->model_users->registerUser($data);
+        $res = $this->model_users->createUser($data);
 
-        if($res)
+        if($ret)
         {
+            $this->session->set_flashdata('message_no', 0);
+            $this->session->set_flashdata('message', "User added successfully");
+            $this->session->set_flashdata('hasMessage', 1);
+
             redirect('main/allusers');
         }
-        else{
+        else
+        {
+            $this->session->set_flashdata('message_no', 1);
+            $this->session->set_flashdata('message', "Error adding User");
+            $this->session->set_flashdata('hasMessage', 1);
+
             redirect('main/adduser', 'refresh');
         }
     }    

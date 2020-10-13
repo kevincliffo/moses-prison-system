@@ -1,5 +1,5 @@
 <?php
-class Model_Prisons extends CI_Model {
+class Model_Prisoners extends CI_Model {
     public function getallcounties()
     {
         $this->db->query("SET sql_mode = '' ");
@@ -18,7 +18,7 @@ class Model_Prisons extends CI_Model {
     function addToDatabase($data)
     {
         $this->db->query("SET sql_mode = '' ");
-        $insert = $this->db->insert('prisons', $data);
+        $insert = $this->db->insert('prisoners', $data);
 
         return $insert;
     }
@@ -30,13 +30,13 @@ class Model_Prisons extends CI_Model {
         return $insert;
     }    
     
-    public function getallprisons()
+    public function getallprisoners()
 
     {
         $this->db->query("SET sql_mode = '' ");
         $this->db->select('*'); 
         $this->db->order_by('Id', 'ASC');
-        $query = $this->db->get('prisons');
+        $query = $this->db->get('prisoners');
 
         
         if ($query->num_rows() > 0)
@@ -47,10 +47,10 @@ class Model_Prisons extends CI_Model {
         }
     }
 
-    function getprisonscount()
+    function getprisonerscount()
     { 
         $this->db->query("SET sql_mode = '' ");
-        $sql = 'SELECT COUNT(*) AS US_Count FROM prisons';
+        $sql = 'SELECT COUNT(*) AS US_Count FROM prisoners';
         $result = $this->db->query($sql);
 
         if($result->num_rows() > 0)
@@ -65,12 +65,12 @@ class Model_Prisons extends CI_Model {
         return $count;
     }
 
-    function deleteprison($id)
+    function deleteprisoner($id)
     {
         $this->db->query("SET sql_mode = '' ");
         $this->db->where('Id', $id);
 
-        $this->db->delete('prisons');
+        $this->db->delete('prisoners');
     }
     
     public function getprisondetailsoverid($id)
@@ -79,7 +79,7 @@ class Model_Prisons extends CI_Model {
         $this->db->query("SET sql_mode = '' ");
         $this->db->where('Id', $id);
 
-        $query = $this->db->get('prisons');
+        $query = $this->db->get('prisoners');
 
 
         if ($query->num_rows() > 0)
@@ -93,7 +93,7 @@ class Model_Prisons extends CI_Model {
     public function getimagesoveruuid($uuid)
     {
         $this->db->query("SET sql_mode = '' ");
-        $this->db->where('PrisonUUID', $uuid);
+        $this->db->where('PrisonerUUID', $uuid);
 
         $query = $this->db->get('images');
 
@@ -105,44 +105,44 @@ class Model_Prisons extends CI_Model {
         }
     }
     
-    public function getPrisonsSummary()
+    public function getPrisonersSummary()
     {
-        $sqlCar = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Car%'";
+        $sqlCar = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Car%'";
 
         $query = $this->db->query($sqlCar);
         $cars = $query->result_array()[0]['Count_ID'];
 
-        $sqlMotorBike = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Motorbike%'";
+        $sqlMotorBike = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Motorbike%'";
 
         $query = $this->db->query($sqlMotorBike);
         $motorbikes = $query->result_array()[0]['Count_ID'];
         
-        $sqlBicycle = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Bicycle%'";
+        $sqlBicycle = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Bicycle%'";
 
         $query = $this->db->query($sqlBicycle);
         $bicycles = $query->result_array()[0]['Count_ID'];
         
-        $sqlBus = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Bus%'";
+        $sqlBus = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Bus%'";
 
         $query = $this->db->query($sqlBus);
         $buses = $query->result_array()[0]['Count_ID'];
         
-        $sqlTruck = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Truck%'";
+        $sqlTruck = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Truck%'";
 
         $query = $this->db->query($sqlTruck);
         $trucks = $query->result_array()[0]['Count_ID'];
         
-        $sqlCart = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Cart%'";
+        $sqlCart = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Cart%'";
 
         $query = $this->db->query($sqlCart);
         $carts = $query->result_array()[0]['Count_ID'];
         
-        $sqlPerson = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Person%'";
+        $sqlPerson = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Person%'";
 
         $query = $this->db->query($sqlPerson);
         $persons = $query->result_array()[0]['Count_ID'];
         
-        $sqlTuktuk = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonType LIKE '%Tuktuk%'";
+        $sqlTuktuk = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerType LIKE '%Tuktuk%'";
 
         $query = $this->db->query($sqlTuktuk);
         $tuktuks = $query->result_array()[0]['Count_ID'];
@@ -164,7 +164,7 @@ class Model_Prisons extends CI_Model {
 
     }
 
-    public function getPrisonsForCurrentYearPerMonth($year)
+    public function getPrisonersForCurrentYearPerMonth($year)
     {
         $stringYear = strval($year);
         $stringMonth = '';
@@ -181,7 +181,7 @@ class Model_Prisons extends CI_Model {
                 $stringMonth = "0".$monthValue;
             }
             $stringYearMonth = $stringYear."-".$stringMonth;
-            $sql = "SELECT COUNT(Id) AS Count_ID FROM prisons WHERE PrisonDate LIKE '%".$stringYearMonth."%'";
+            $sql = "SELECT COUNT(Id) AS Count_ID FROM prisoners WHERE PrisonerDate LIKE '%".$stringYearMonth."%'";
 
             $query = $this->db->query($sql);
             $value = $query->result_array()[0]['Count_ID'];
@@ -219,12 +219,12 @@ class Model_Prisons extends CI_Model {
         );
     }
 
-    public function getPrisonsOverFilter($data)
+    public function getPrisonersOverFilter($data)
     {
 
         switch ($data['FilterType']) {
-            case 'PrisonType':
-                $sql = "SELECT * FROM prisons WHERE PrisonType LIKE '%".$data['PrisonType']."%' ORDER BY Id ASC";
+            case 'PrisonerType':
+                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' ORDER BY Id ASC";
 
                 break;
             
@@ -236,31 +236,31 @@ class Model_Prisons extends CI_Model {
                 }
                 $datePart = strval($year)."-".$data['Month'];
 
-                $sql = "SELECT * FROM prisons WHERE PrisonType LIKE '%".$data['PrisonType']."%' AND PrisonDate LIKE '%".$datePart."%' ORDER BY Id ASC";
+                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' AND PrisonerDate LIKE '%".$datePart."%' ORDER BY Id ASC";
 
                 break;
             
             case 'Yearly':
-                $sql = "SELECT * FROM prisons WHERE PrisonType LIKE '%".$data['PrisonType']."%' AND PrisonDate LIKE '%".$data['Year']."%' ORDER BY Id ASC";
+                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' AND PrisonerDate LIKE '%".$data['Year']."%' ORDER BY Id ASC";
 
                 break;
             
             case 'County':
-                $sql = "SELECT * FROM prisons WHERE County = '".$data['County']."' ORDER BY Id ASC";
+                $sql = "SELECT * FROM prisoners WHERE County = '".$data['County']."' ORDER BY Id ASC";
 
                 break;
 
             case 'NumberPlate':
-                $sql = "SELECT * FROM prisons INNER JOIN motorvehicles ON motorvehicles.PrisonUUID = prisons.UUID where "
+                $sql = "SELECT * FROM prisoners INNER JOIN motorvehicles ON motorvehicles.PrisonerUUID = prisoners.UUID where "
 
                      . " motorvehicles.NumberPlate = '".$data['NumberPlate']."'";
         }
 
         $query = $this->db->query($sql);
-        $prisons = $query->result_array();
+        $prisoners = $query->result_array();
 
 
-        return $prisons;
+        return $prisoners;
 
     }
 }

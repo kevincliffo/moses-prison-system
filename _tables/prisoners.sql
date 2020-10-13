@@ -3,7 +3,9 @@ CREATE TABLE prisoners (
     FirstName varchar(100) NOT NULL,
     LastName varchar(100),
     Crime varchar(50) NOT NULL,
-    Details varchar(255) NOT NULL,
+    CrimeCounty varchar(50) NOT NULL,
+    Details varchar(255) NOT NULL,    
+    IDNumber varchar(255),
     Prison varchar(100) NOT NULL,
     SentenceDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ReleaseDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
