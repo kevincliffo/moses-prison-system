@@ -12,15 +12,6 @@ class Model_Users extends CI_Model {
 
         return false;
     }
-    
-    function updateusersubscriptionstatus($userid, $status){
-        $this->db->query("SET sql_mode = '' ");
-        $this->db->where('UserId', $userid);
-        $data = array('Subscribed' => $status);
-        $result = $this->db->update('users', $data);
-
-        return $result;
-    }
 
     function updatelastlogin($email){
         $now = new DateTime();
@@ -98,13 +89,31 @@ class Model_Users extends CI_Model {
         return $count;
     }      
     
-    function registerUser($userdata)
+    function createUser($userdata)
     {
         $this->db->query("SET sql_mode = '' ");
         $insert = $this->db->insert('users', $userdata);
         return $insert;
     }
     
+    public function getusernameoveremail($email)
+    {
+        $this->db->query("SET sql_mode = '' ");
+        $this->db->where('Email', $email);
+
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() > 0)
+        {
+            $firstname = $query->result_array()[0]['FirstName'];
+            $lastname = $query->result_array()[0]['LastName'];
+
+            return $firstname.' '.$lastname ;
+        } else {
+            return '';
+        }
+    }
+
     public function getuserdataoverid($id)
     {
         $this->db->query("SET sql_mode = '' ");
@@ -148,5 +157,5 @@ class Model_Users extends CI_Model {
         } else {
             return array();
         }
-    }
+    }    
 }

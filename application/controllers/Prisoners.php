@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Accidents extends CI_Controller {
+class Prisoners extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('url');
@@ -13,7 +13,7 @@ class Accidents extends CI_Controller {
 
         $data['prisons'] = $this->model_prisons->getallprisons();
 
-        $data['title'] = 'Accident Reporting System | Accidents';
+        $data['title'] = 'Prisoner Reporting System | Prisoners';
         $data['faviconpartpath'] = base_url().'img/favicon.png';
 
         $this->load->view('includes/header', $data);
@@ -35,7 +35,7 @@ class Accidents extends CI_Controller {
         $data['motorvehicles'] = $this->model_motorvehicles->getmotorvehiclesoveruuid($data['prison'][0]['UUID']);
 
         //print_r($data['images']);die();
-        $data['title'] = 'Accident Reporting System | Accidents - ' .$id;
+        $data['title'] = 'Prisoner Reporting System | Prisoners - ' .$id;
         $data['faviconpartpath'] = base_url().'img/favicon.png';
 
         $this->load->view('includes/header', $data);
@@ -52,7 +52,7 @@ class Accidents extends CI_Controller {
         $data['faviconpartpath'] = base_url().'img/favicon.png';
         $data['counties'] = $this->model_prisons->getallcounties();
 
-        $data['title'] = 'Accident Reporting System | Report Accident';
+        $data['title'] = 'Prisoner Reporting System | Report Prisoner';
 
         $this->load->view('includes/header', $data);
         $this->load->view('view_report_prison', $data);
@@ -71,7 +71,7 @@ class Accidents extends CI_Controller {
         $this->load->model('model_prisons');
 
         $this->load->model('model_motorvehicles');
-        $message = 'Accident Report Added Successfully';
+        $message = 'Prisoner Report Added Successfully';
         $county = $this->input->post('county');
         $subCounty = $this->input->post('subCounty');
         $location = $this->input->post('location');
@@ -86,7 +86,7 @@ class Accidents extends CI_Controller {
             'County'   => $county,
             'SubCounty'   => $subCounty,
             'Location'   => $location,
-            'AccidentType'   => $prisonType,
+            'PrisonerType'   => $prisonType,
 
             'ReportedBy'   => $reporter,
             'Details'  => $details,
@@ -128,7 +128,7 @@ class Accidents extends CI_Controller {
                     $data['filenames'][] = $filename;
 
                     $image_data = array(
-                        'AccidentUUID' => $uuid,
+                        'PrisonerUUID' => $uuid,
                         'Name' => $filename,
                         'Path' => 'uploads/'.$filename
                     );
@@ -170,7 +170,7 @@ class Accidents extends CI_Controller {
                 $numberplate = $numberplates[$index];
 
                 $data = array(
-                    "AccidentUUID" => $uuid,
+                    "PrisonerUUID" => $uuid,
                     "MotorVehicleType" => $motorvehicle,
                     "NumberPlate" => $numberplate,
                     "Color" =>$colour
@@ -201,14 +201,14 @@ class Accidents extends CI_Controller {
         $this->load->view('includes/footer', $data);
     }
 
-	public function getAccidentsOverFilter()
+	public function getPrisonersOverFilter()
 	{ 
         $this->load->model('model_prisons');
 
 
         $data = array(
             'Month' => $this->input->post('Month'),
-            'AccidentType' => $this->input->post('AccidentType'),
+            'PrisonerType' => $this->input->post('PrisonerType'),
             'Year' => $this->input->post('Year'),
             'County' => $this->input->post('County'),
             'NumberPlate' => $this->input->post('NumberPlate'),
@@ -217,13 +217,13 @@ class Accidents extends CI_Controller {
         
         $file = fopen('output.txt', 'w');
         fwrite($file, 'Month : '.$this->input->post('Month').'\n');
-        fwrite($file, 'AccidentType : '.$this->input->post('AccidentType').'\n');
+        fwrite($file, 'PrisonerType : '.$this->input->post('PrisonerType').'\n');
         fwrite($file, 'Year : '.$this->input->post('Year').'\n');
         fwrite($file, 'County : '.$this->input->post('County').'\n');
         fwrite($file, 'NumberPlate : '.$this->input->post('NumberPlate').'\n');
         fwrite($file, 'FilterType : '.$this->input->post('FilterType').'\n');
         fclose($file);
-		$prisons = $this->model_prisons->getAccidentsOverFilter($data);
+		$prisons = $this->model_prisons->getPrisonersOverFilter($data);
 
 		echo json_encode($prisons);
 

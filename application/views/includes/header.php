@@ -19,16 +19,16 @@
         <!-- Page Wrapper -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
                 <!-- Sidebar - Brand -->
                 <?php 
-                    echo anchor('main/dashboard', '<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hospital"></i></div><div class="sidebar-brand-text mx-3">Accident Reporting <sup>System</sup></div>', 'class="sidebar-brand d-flex align-items-center justify-content-center"');
+                    echo anchor('main/dashboard', '<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-lock"></i></div><div class="sidebar-brand-text mx-3">Prison Management <sup>System</sup></div>', 'class="sidebar-brand d-flex align-items-center justify-content-center"');
                 ?>
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0" />
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <?php echo anchor('main/dashboard', '<i class="fas fa-fw fa-hospital"></i><span>Dashboard</span>', 'class="nav-link"');?>
+                    <?php echo anchor('main/dashboard', '<i class="fas fa-fw fa-home"></i><span>Home</span>', 'class="nav-link"');?>
                 </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider" />
@@ -36,7 +36,7 @@
                 <div class="sidebar-heading">
                     Interface
                 </div>
-                <!-- Nav Item - Pages Collapse Menu -->                
+                <!-- Nav Item - Pages Collapse Menu -->
                 <?php
                     if($this->session->userdata('UserType') == 'Admin')
                     {
@@ -62,14 +62,29 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-road"></i>
-                        <span>Accidents</span>
+                        <span>Prisons</span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Accidents:</h6>
-                            <?php echo anchor('prisons/addprison', 'Report Accident', 'class="collapse-item"');?>
+                            <h6 class="collapse-header">Prisons:</h6>
+                            <?php echo anchor('prisons/addprison', 'Add Prison', 'class="collapse-item"');?>
 
-                            <?php echo anchor('prisons', 'View Accidents', 'class="collapse-item"');?>
+                            <?php echo anchor('prisons', 'View Prisons', 'class="collapse-item"');?>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrisoners" aria-expanded="true" aria-controls="collapsePrisoners">
+                        <i class="fas fa-fw fa-road"></i>
+                        <span>Prisoners</span>
+                    </a>
+                    <div id="collapsePrisoners" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Prisoners:</h6>
+                            <?php echo anchor('prisons/addprisoner', 'Add Prisoner', 'class="collapse-item"');?>
+
+                            <?php echo anchor('prisons', 'View Prisoners', 'class="collapse-item"');?>
 
                         </div>
                     </div>

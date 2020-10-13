@@ -25,8 +25,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.76015625"
-     inkscape:cx="202.67215"
+     inkscape:zoom="1.6509644"
+     inkscape:cx="104.24483"
      inkscape:cy="560"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,13 +52,19 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <path
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Gabriola;-inkscape-font-specification:Gabriola;letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.63731378"
-       d="m 73.924735,94.244842 c -1.234784,2.425201 -2.469101,4.882641 -3.703885,7.372518 -1.183334,2.45754 -2.366685,5.04411 -3.550019,7.76033 -1.131885,2.71623 -2.289744,5.59408 -3.473078,8.63367 -0.317579,0.81576 14.33387,25.66832 14.019997,26.51902 l -8.582713,-24.01644 c 0.140923,-0.41377 0.277449,-0.82765 0.42707,-1.24142 h 16.825286 c 0.463044,1.42278 0.899447,2.8452 1.311042,4.26799 0.463043,1.42278 -3.971888,14.00026 -3.560294,15.45538 l 11.817491,-11.13806 c -1.183334,-3.52463 -2.366676,-6.80687 -3.550011,-9.84647 -1.131885,-3.03959 -2.288176,-5.91744 -3.47151,-8.63367 -1.131886,-2.71622 -2.315236,-5.30279 -3.55002,-7.76033 -1.183334,-2.489877 -2.393736,-4.947317 -3.628519,-7.372518 z m 3.550019,4.946925 c 1.286233,2.683883 2.520551,5.384553 3.703885,8.100783 1.183334,2.71623 2.290226,5.49698 3.319205,8.34256 h -14.12312 c 1.080436,-2.84558 2.212811,-5.62633 3.396145,-8.34256 1.183327,-2.71623 2.417652,-5.4169 3.703885,-8.100783 z"
-       id="flowRoot10"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccccccscccc"
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:Gabriola;-inkscape-font-specification:Gabriola;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="22.115862"
+       y="133.37468"
+       id="text818"
+       inkscape:export-filename="C:\xampp\htdocs\prison\img\favicon.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan816"
+         x="22.115862"
+         y="133.37468"
+         style="stroke-width:0.26458332;-inkscape-font-specification:'Old English Text MT';font-family:'Old English Text MT';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;fill:#00e600;fill-opacity:1;font-size:19.75555556px">p</tspan></text>
   </g>
 </svg>

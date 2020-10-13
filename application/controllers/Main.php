@@ -4,25 +4,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Main extends CI_Controller {
 	public function index()
 	{
-        $this->load->view('view_login');
-        $data = array(
-            'Email' => 'admin@yahoo.com',
-            'UserId' => 1,
-            'IsLoggedIn' => TRUE,
-            'UserType' => 'Admin',
-            'FirstName' => 'Admin',
-            'LastName' => 'Admin'
-        );
-        $this->session->set_userdata($data);
-        redirect('main/dashboard', 'refresh');
+        
+        // $data = array(
+        //     'Email' => 'admin@yahoo.com',
+        //     'UserId' => 1,
+        //     'IsLoggedIn' => TRUE,
+        //     'UserType' => 'Admin',
+        //     'FirstName' => 'Admin',
+        //     'LastName' => 'Admin'
+        // );
+        // $this->session->set_userdata($data);
+        // redirect('main/dashboard', 'refresh');
+        if($this->session->userdata('IsLoggedIn'))
+        {        
+            $data['title'] = 'Prison Reporting System';
+            $data['prisonSummary'] = $this->getPrisonsSummary();
+
+            $data['faviconpartpath'] = base_url().'img/favicon.png';
+
+            $this->load->view('includes/header', $data);
+            $this->load->view('view_dashboard', $data);
+            $this->load->view('includes/footer', $data);
+        }        
+        else
+        {
+            $this->doinitializetasksif();
+            $data['faviconpartpath'] = base_url().'img/favicon.png';
+            $this->load->view('view_login', $data);
+        }         
     }
     
+    function doinitializetasksif()
+    {
+        $this->load->model('model_users');
+
+        $userscount = $this->model_users->getuserscount();
+
+        while(true)
+        {
+            if($userscount > 0)
+            {
+                break;
+            }
+
+            $userdata = array(
+                'FirstName' => 'Admin',
+                'LastName' => 'Admin',
+                'UserType' => 'Admin',
+                'Email' => 'admin@yahoo.com',			
+                'Password' => md5('1admin@'),
+                'MobileNo' => '0700000000',
+            );        
+
+            $query = $this->model_users->createUser($userdata);
+            break;
+        }
+    }
+
     function dashboard()
     {
         if($this->session->userdata('IsLoggedIn'))
         {        
             $data['title'] = 'Prison Reporting System';
-            $data['prisonSummary'] = $this->getPrisonsSummary();
+            $data['prisonSummary'] = 1;
 
             $data['faviconpartpath'] = base_url().'img/favicon.png';
 
@@ -151,6 +195,7 @@ class Main extends CI_Controller {
             'UserType' => $userType
         );
 
+        // print_r($data);die();
         $res = $this->model_users->validate($data);
         if($res['UserFound'])
         {
@@ -215,7 +260,8 @@ class Main extends CI_Controller {
 
     function register()
     {
-		$this->load->view('view_signup');
+        $data['faviconpartpath'] = base_url().'img/favicon.png';
+		$this->load->view('view_signup', $data);
     }
 
     function registeruser()
