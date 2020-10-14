@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Accident Reporting System - Login</title>
+        <title>Prison Registration System - Login</title>
 		<link rel="icon" type="image/png" href="<?php echo $faviconpartpath;?>">
         <!-- Custom fonts for this template-->
         <link href="<?php echo base_url(); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,6 +26,7 @@
                                 <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center">
+                                            <img src="<?php echo base_url(); ?>img/favicon.png" alt="" srcset="">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                         </div>
                                         <?php

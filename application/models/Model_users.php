@@ -23,9 +23,9 @@ class Model_Users extends CI_Model {
         $this->db->where('Email', $email);
         $this->db->update('users', $data);
         
-        $array = array('Email' => $email, 'LastLogin' => $timestamp);
-        $this->db->set($array);
-        $this->db->insert('logins');        
+        // $array = array('Email' => $email, 'LastLogin' => $timestamp);
+        // $this->db->set($array);
+        // $this->db->insert('logins');        
     }
 
     function deleteuser($id)
@@ -47,6 +47,7 @@ class Model_Users extends CI_Model {
 
         if($query->num_rows() == 1)
         {
+            $this->model_users->updatelastlogin($data['Email']);
             $user = $this->getuserdataoveremail($data['Email']);
             //print_r($user); die();
             $ret = array(
@@ -127,7 +128,7 @@ class Model_Users extends CI_Model {
         } else {
             return array();
         }
-    } 
+    }
 
     public function getuserdataoveremail($email)
     {

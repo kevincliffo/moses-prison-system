@@ -81,16 +81,15 @@
                                 <div class="form-row">                                
                                     <div class="col-md-6">
                                         <div class="form-label-group">
-                                            <?php
-                                                $crime = array('class' => 'form-control',
-                                                            'id'=>'crime',
-                                                            'name'=>'crime',
-                                                            'type' => 'text',
-                                                            'placeholder' => 'Crime',
-                                                            'required' =>'required',
-                                                            );
-                                                echo form_input($crime);                      
-                                            ?>
+                                            <select id="crime" name="crime" class="form-control" required>
+                                                <option selected disabled>Select Crime</option>
+                                                <?php 
+                                                    foreach($crimes as $crime)
+                                                    {
+                                                        echo '<option value='.$crime['CrimeName']. '>'.$crime['CrimeName'].'</option>';
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -120,7 +119,6 @@
                                                     'title' => 'Sentence Date',
                                                     'required' =>'required'
                                                 );
-
                                                 echo form_input($sentenceDate);                       
                                             ?>
                                         </div>

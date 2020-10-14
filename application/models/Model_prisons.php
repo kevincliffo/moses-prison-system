@@ -15,10 +15,33 @@ class Model_Prisons extends CI_Model {
         }
     }
 
+    public function getallcrimes()
+    {
+        $this->db->query("SET sql_mode = '' ");
+        $this->db->select('*'); 
+        $this->db->order_by('Id', 'ASC');
+        $query = $this->db->get('crimes');
+        
+        if ($query->num_rows() > 0)
+        {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
     function addToDatabase($data)
     {
         $this->db->query("SET sql_mode = '' ");
         $insert = $this->db->insert('prisons', $data);
+
+        return $insert;
+    }
+
+    function addCrimeToDatabase($data)
+    {
+        $this->db->query("SET sql_mode = '' ");
+        $insert = $this->db->insert('crimes', $data);
 
         return $insert;
     }

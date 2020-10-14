@@ -36,15 +36,55 @@ class Reports extends CI_Controller {
         $this->load->view('includes/footer', $data);
     }
 
-    function addreport()
+    function prisons()
     {
-        $this->load->model('model_reports');
-        $data['counties'] = $this->model_reports->getallcounties();
-        $data['title'] = 'Report Reporting System | Report Report';
+        $this->load->model('model_prisons');
+        $data['prisons'] = $this->model_prisons->getallprisons();
+        $data['title'] = 'Prison Registration Sytem | Prisons Report';
         $data['faviconpartpath'] = base_url().'img/favicon.png';
 
         $this->load->view('includes/header', $data);
-        $this->load->view('view_report_report', $data);
+        $this->load->view('view_report_prisons', $data);
+        $this->load->view('includes/footer', $data);
+    }
+
+    function prisoners()
+    {
+        $this->load->model('model_prisoners');
+        $data['prisoners'] = $this->model_prisoners->getallprisoners();
+        $data['title'] = 'Prison Registration Sytem | Prisoners Report';
+        $data['faviconpartpath'] = base_url().'img/favicon.png';
+
+        $this->load->view('includes/header', $data);
+        $this->load->view('view_report_prisoners', $data);
+        $this->load->view('includes/footer', $data);
+    }
+
+    function prisonersfilters()
+    {
+        $this->load->model('model_prisoners');
+        $data['prisoners'] = $this->model_prisoners->getallprisoners();
+        $this->load->model('model_prisons');
+        $data['crimes'] = $this->model_prisons->getallcrimes();
+        $data['prisons'] = $this->model_prisons->getallprisons();
+
+        $data['title'] = 'Prison Registration Sytem | Prisoners Filter Report';
+        $data['faviconpartpath'] = base_url().'img/favicon.png';
+
+        $this->load->view('includes/header', $data);
+        $this->load->view('view_report_prisoners_filter', $data);
+        $this->load->view('includes/footer', $data);
+    }
+
+    function users()
+    {
+        $this->load->model('model_users');
+        $data['users'] = $this->model_users->getallusers();
+        $data['title'] = 'Prison Registration Sytem | Users Report';
+        $data['faviconpartpath'] = base_url().'img/favicon.png';
+
+        $this->load->view('includes/header', $data);
+        $this->load->view('view_report_users', $data);
         $this->load->view('includes/footer', $data);
     }
 

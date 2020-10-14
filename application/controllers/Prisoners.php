@@ -31,6 +31,7 @@ class Prisoners extends CI_Controller {
         $data['faviconpartpath'] = base_url().'img/favicon.png';
         $data['counties'] = $this->model_prisoners->getallcounties();
         $data['prisons'] = $this->model_prisons->getallprisons();
+        $data['crimes'] = $this->model_prisons->getallcrimes();
 
         $data['title'] = 'Prisoner Reporting System | Report Prisoner';
 

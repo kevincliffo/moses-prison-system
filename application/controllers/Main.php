@@ -172,8 +172,9 @@ class Main extends CI_Controller {
             'UserType' => 'User'
         );
 
-        $res = $this->model_users->createUser($data);
+        $ret = $this->model_users->createUser($data);
 
+        // print_r($res);die();
         if($ret)
         {
             $this->session->set_flashdata('message_no', 0);
@@ -190,7 +191,7 @@ class Main extends CI_Controller {
 
             redirect('main/adduser', 'refresh');
         }
-    }    
+    }
 
     function allusers()
     {
@@ -209,7 +210,27 @@ class Main extends CI_Controller {
         {
             redirect('main', 'refresh');
         }            
-    }    
+    }
+
+    function profile()
+    {
+        if($this->session->userdata('IsLoggedIn'))
+        {
+            $this->load->model('model_users');
+            $data['user'] = $this->model_users->getuserdataoverid($this->session->userdata('UserId'));
+            
+            $data['faviconpartpath'] = base_url().'img/favicon.png';
+            $data['title'] = 'User - Profile';
+
+            $this->load->view('includes/header', $data);
+            $this->load->view('view_user_profile', $data);
+            $this->load->view('includes/footer', $data);
+        }        
+        else
+        {
+            redirect('main', 'refresh');
+        }            
+    }
 
     function loginuser()
     {

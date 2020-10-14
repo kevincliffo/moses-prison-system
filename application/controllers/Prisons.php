@@ -23,7 +23,6 @@ class Prisons extends CI_Controller {
     }
 
     function addprison()
-
     {
         $this->load->model('model_prisons');
 
@@ -37,12 +36,56 @@ class Prisons extends CI_Controller {
 
         $this->load->view('includes/footer', $data);
     }
+
+    function addcrime()
+    {
+        $this->load->model('model_prisons');
+        $data['crimes'] = $this->model_prisons->getallcrimes();
+
+        $data['faviconpartpath'] = base_url().'img/favicon.png';
+
+        $data['title'] = 'Prisoner Reporting System | Add Crime';
+
+        $this->load->view('includes/header', $data);
+        $this->load->view('view_add_crime', $data);
+
+        $this->load->view('includes/footer', $data);
+    }
+    function addcrimetodb()
+    {
+        $this->load->model('model_prisons');
+        $message = 'Crime Added Successfully';
+        
+        $name = $this->input->post('crimeName');
+
+        $data = array(
+            'CrimeName'   => $name
+        );
+
+        $ret = $this->model_prisons->addCrimeToDatabase($data);
+
+        if($ret)
+        {
+            $this->session->set_flashdata('message_no', 0);
+            $this->session->set_flashdata('message', $message);
+            $this->session->set_flashdata('hasMessage', 1);
+        }
+        else
+        {
+            $this->session->set_flashdata('message_no', 1);
+            $this->session->set_flashdata('message', "Error adding Crime");
+            $this->session->set_flashdata('hasMessage', 1);
+        }
+        redirect('prisons/addcrime', 'refresh');
+    }
+
     function uuid(){
         $data = random_bytes(16);
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
+
     function addprisontodb()
     {
         $this->load->model('model_prisons');

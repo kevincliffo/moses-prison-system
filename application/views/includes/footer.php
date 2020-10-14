@@ -5,7 +5,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Accident Reporting System <?php echo date("Y"); ?></span>
+                            <span>Copyright &copy; Prison Registering System <?php echo date("Y"); ?></span>
                         </div>
                     </div>
                 </footer>
@@ -210,7 +210,6 @@
 
                 {
                     prisonTypeValue = prisonType.value;
-
                 }
 
                 document.body.innerHTML = printingArea;
@@ -218,12 +217,10 @@
                 document.body.innerHTML = allArea;
 
                 if(prisonType != null)
-
                 {
                     var prisonType = document.getElementById("prisonType");
 
                     prisonType.value = prisonTypeValue;
-
                 }
 
                 if(month != null)
