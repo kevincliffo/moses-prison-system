@@ -13,11 +13,11 @@
                                     <div class="col-md-6">
                                         <div class="form-label-group">
                                             <select id="prison" name="prison" class="form-control">
-                                                <option selected disabled>Select Prison</option>
+                                                <option value="" selected disabled>Select Prison</option>
                                                 <?php 
                                                     foreach($prisons as $prison)
                                                     {
-                                                        echo '<option value='.$prison['Name']. '>'.$prison['Name'].'</option>';
+                                                        echo '<option value="'.$prison['Name']. '">'.$prison['Name'].'</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -26,11 +26,11 @@
                                     <div class="col-md-6">
                                         <div class="form-label-group">
                                             <select id="crime" name="crime" class="form-control">
-                                                <option selected disabled>Select Crime</option>
+                                                <option value="" selected disabled>Select Crime</option>
                                                 <?php 
                                                     foreach($crimes as $crime)
                                                     {
-                                                        echo '<option value='.$crime['CrimeName']. '>'.$crime['CrimeName'].'</option>';
+                                                        echo '<option value="'.$crime['CrimeName']. '">'.$crime['CrimeName'].'</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -83,13 +83,13 @@
                                         );
                             
                                         $counter = 1;
-                                        $this->table->set_heading('Id', 'First Name', 'Last Name', 'ID Number', 'Crime', 'Crime County', 'Details', 'Prison', 'Sentence Date', 'Release Date', 'Remove Prisoner');
+                                        $this->table->set_heading('Id', 'First Name', 'Last Name', 'ID Number', 'Crime', 'Crime County', 'Details', 'Prison', 'Sentence Date', 'Release Date');
                                         foreach ($prisoners as $prisoner)
                                         {
-                                            $this->table->add_row($counter, $prisoner['FirstName'], $prisoner['LastName'], $prisoner['IDNumber'], $prisoner['Crime'], $prisoner['CrimeCounty'], $prisoner['Details'], $prisoner['Prison'], $prisoner['SentenceDate'], $prisoner['ReleaseDate'], anchor('prisoners/removeprisoner/'.$prisoner['Id'], 'Remove'));
+                                            $this->table->add_row($counter, $prisoner['FirstName'], $prisoner['LastName'], $prisoner['IDNumber'], $prisoner['Crime'], $prisoner['CrimeCounty'], $prisoner['Details'], $prisoner['Prison'], $prisoner['SentenceDate'], $prisoner['ReleaseDate']);
                                             $counter = $counter + 1;
                                         }
-                                        $this->table->add_row('<b>Id</b>', '<b>First Name</b>', '<b>Last Name</b>', '<b>ID Number</b>', '<b>Crime</b>', '<b>Crime County</b>', '<b>Details</b>', '<b>Prison</b>', '<b>Sentence Date</b>', '<b>Release Date</b>', '<b>Remove Prisoner</b>');
+                                        $this->table->add_row('<b>Id</b>', '<b>First Name</b>', '<b>Last Name</b>', '<b>ID Number</b>', '<b>Crime</b>', '<b>Crime County</b>', '<b>Details</b>', '<b>Prison</b>', '<b>Sentence Date</b>', '<b>Release Date</b>');
                                         $this->table->set_template($template);
                                         echo $this->table->generate();
                                     ?>

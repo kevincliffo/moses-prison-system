@@ -82,7 +82,10 @@
             function generateReport()
             {
                 var base_url = "<?php echo base_url(); ?>";
-                var filterType = document.getElementById("filterType");
+                var prison = document.getElementById("prison");
+                var crime = document.getElementById("crime");
+                var sentenceDate = document.getElementById("sentenceDate");
+                var releaseDate = document.getElementById("releaseDate");
                 var btngenerateReportData = document.getElementById("generateReportData");
                 btngenerateReportData.disabled = true;
                 
@@ -94,60 +97,25 @@
                 var table = document.getElementById("dataTableReports");
                 var rows = $("#dataTableReports tbody tr").length;
 
-                var monthValue = "";
-                var yearValue = "";
-                var numberPlateValue = "";
-                var prisonTypeValue = "";
+                var prisonValue = prison.value;
+                var crimeValue = crime.value;
+                var sentenceDateValue = sentenceDate.value;
+                var releaseDateValue = releaseDate.value;
 
-                var countyValue = "";
-
-                switch(filterType.value)
-                {
-                    case "AccidentType":
-                        var prisonType = document.getElementById("prisonType");
-
-                        prisonTypeValue = prisonType.value;
-
-                        break;
-                    case "Monthly":
-                        var month = document.getElementById("month");
-                        var prisonType = document.getElementById("prisonType");
-
-                        monthValue = month.value;
-                        prisonTypeValue = prisonType.value;
-
-                        break;
-                    case "Yearly":
-                        var year = document.getElementById("year");
-                        var prisonType = document.getElementById("prisonType");
-
-                        yearValue = year.value;
-                        prisonTypeValue = prisonType.value;
-
-                        break;
-                    case "NumberPlate":
-                        var numberPlate = document.getElementById("numberPlate");
-                        numberPlateValue = numberPlate.value;
-                        break;
-                    case "County":
-                        var county = document.getElementById("county");
-                        countyValue = county.value;
-                        break;
-
-                }
+                console.log(prisonValue);
+                console.log(crimeValue);
+                console.log(sentenceDateValue);
+                console.log(releaseDateValue);
                 
                 $.ajax({
-                    url: base_url + 'prisons/getAccidentsOverFilter/',
+                    url: base_url + 'prisoners/getPrisonersOverFilter/',
 
                     type: 'post',
                     data:{
-                            Month : monthValue,
-                            Year : yearValue, 
-                            AccidentType: prisonTypeValue,
-
-                            NumberPlate: numberPlateValue,
-                            County: countyValue,
-                            FilterType: filterType.value
+                            Prison : prisonValue,
+                            Crime : crimeValue, 
+                            SentenceDate: sentenceDateValue,
+                            ReleaseDate: releaseDateValue
                         },
                     dataType: 'json',
                     success:function(response) {
@@ -162,26 +130,19 @@
                             var cell6 = row.insertCell(5);
                             var cell7 = row.insertCell(6);
                             var cell8 = row.insertCell(7);
+                            var cell9 = row.insertCell(8);
+                            var cell10 = row.insertCell(9);
 
                             cell1.innerHTML = index+1;
-                            cell2.innerHTML = value.ReportedBy;
-                            cell3.innerHTML = value.County;
-                            cell4.innerHTML = value.SubCounty;
-                            cell5.innerHTML = value.Location;
-                            cell6.innerHTML = value.AccidentType;
+                            cell2.innerHTML = value.FirstName;
+                            cell3.innerHTML = value.LastName;
+                            cell4.innerHTML = value.IDNumber;
+                            cell5.innerHTML = value.Crime;
+                            cell6.innerHTML = value.CrimeCounty;
                             cell7.innerHTML = value.Details;
-                            cell8.innerHTML = value.AccidentDate;
-
-                            if(filterType.value == 'NumberPlate')
-                            {
-                                var cell9 = row.insertCell(8);
-                                var cell10 = row.insertCell(9);
-                                var cell11 = row.insertCell(10);
-
-                                cell9.innerHTML = value.MotorVehicleType;
-                                cell10.innerHTML = value.NumberPlate;
-                                cell11.innerHTML = value.Color;
-                            }
+                            cell8.innerHTML = value.Prison;
+                            cell9.innerHTML = value.SentenceDate;
+                            cell10.innerHTML = value.ReleaseDate;
                             
                             rows = $("#dataTableReports tbody tr").length;
                             count = count + 1;

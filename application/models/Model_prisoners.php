@@ -222,39 +222,8 @@ class Model_Prisoners extends CI_Model {
     public function getPrisonersOverFilter($data)
     {
 
-        switch ($data['FilterType']) {
-            case 'PrisonerType':
-                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' ORDER BY Id ASC";
+        $sql = "SELECT * FROM prisoners WHERE Prison ='".$data['Prison']."' ORDER BY Id ASC";
 
-                break;
-            
-            case 'Monthly':
-                $year = date('Y');
-                if(strlen($data['Month']) == 1)
-                {
-                    $data['Month'] = "0".$data['Month'];
-                }
-                $datePart = strval($year)."-".$data['Month'];
-
-                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' AND PrisonerDate LIKE '%".$datePart."%' ORDER BY Id ASC";
-
-                break;
-            
-            case 'Yearly':
-                $sql = "SELECT * FROM prisoners WHERE PrisonerType LIKE '%".$data['PrisonerType']."%' AND PrisonerDate LIKE '%".$data['Year']."%' ORDER BY Id ASC";
-
-                break;
-            
-            case 'County':
-                $sql = "SELECT * FROM prisoners WHERE County = '".$data['County']."' ORDER BY Id ASC";
-
-                break;
-
-            case 'NumberPlate':
-                $sql = "SELECT * FROM prisoners INNER JOIN motorvehicles ON motorvehicles.PrisonerUUID = prisoners.UUID where "
-
-                     . " motorvehicles.NumberPlate = '".$data['NumberPlate']."'";
-        }
 
         $query = $this->db->query($sql);
         $prisoners = $query->result_array();

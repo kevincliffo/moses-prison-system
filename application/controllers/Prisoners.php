@@ -122,23 +122,18 @@ class Prisoners extends CI_Controller {
 	{ 
         $this->load->model('model_prisoners');
 
-
         $data = array(
-            'Month' => $this->input->post('Month'),
-            'PrisonerType' => $this->input->post('PrisonerType'),
-            'Year' => $this->input->post('Year'),
-            'County' => $this->input->post('County'),
-            'NumberPlate' => $this->input->post('NumberPlate'),
-            'FilterType' => $this->input->post('FilterType')
+            'Prison' => $this->input->post('Prison'),
+            'Crime' => $this->input->post('Crime'),
+            'SentenceDate' => $this->input->post('SentenceDate'),
+            'ReleaseDate' => $this->input->post('ReleaseDate')
         );
         
         $file = fopen('output.txt', 'w');
-        fwrite($file, 'Month : '.$this->input->post('Month').'\n');
-        fwrite($file, 'PrisonerType : '.$this->input->post('PrisonerType').'\n');
-        fwrite($file, 'Year : '.$this->input->post('Year').'\n');
-        fwrite($file, 'County : '.$this->input->post('County').'\n');
-        fwrite($file, 'NumberPlate : '.$this->input->post('NumberPlate').'\n');
-        fwrite($file, 'FilterType : '.$this->input->post('FilterType').'\n');
+        fwrite($file, 'Prison : '.$this->input->post('Prison').'\n');
+        fwrite($file, 'Crime : '.$this->input->post('Crime').'\n');
+        fwrite($file, 'SentenceDate : '.$this->input->post('SentenceDate').'\n');
+        fwrite($file, 'ReleaseDate : '.$this->input->post('ReleaseDate').'\n');
         fclose($file);
 		$prisons = $this->model_prisoners->getPrisonersOverFilter($data);
 
