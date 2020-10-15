@@ -130,10 +130,10 @@ class Prisoners extends CI_Controller {
         );
         
         $file = fopen('output.txt', 'w');
-        fwrite($file, 'Prison : '.$this->input->post('Prison').'\n');
-        fwrite($file, 'Crime : '.$this->input->post('Crime').'\n');
-        fwrite($file, 'SentenceDate : '.$this->input->post('SentenceDate').'\n');
-        fwrite($file, 'ReleaseDate : '.$this->input->post('ReleaseDate').'\n');
+        fwrite($file, 'Prison : '.$this->input->post('Prison')."\n");
+        fwrite($file, 'Crime : '.$this->input->post('Crime')."\n");
+        fwrite($file, 'SentenceDate : '.$this->input->post('SentenceDate')."\n");
+        fwrite($file, 'ReleaseDate : '.$this->input->post('ReleaseDate')."\n");
         fclose($file);
 		$prisons = $this->model_prisoners->getPrisonersOverFilter($data);
 

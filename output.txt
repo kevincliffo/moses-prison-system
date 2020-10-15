@@ -1,1 +1,4 @@
-Prison : Kamiti Maximum Prison\nCrime : Assault\nSentenceDate : 2020-10-08\nReleaseDate : 2020-10-28\n
+Prison : 
+Crime : 
+SentenceDate : 2018-10-01
+ReleaseDate : 2020-11-06

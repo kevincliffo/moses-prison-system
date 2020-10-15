@@ -221,15 +221,74 @@ class Model_Prisoners extends CI_Model {
 
     public function getPrisonersOverFilter($data)
     {
+        $sql = '';
+        if($data['Prison'] == '')
+        {
+            $sql = $sql;
+        }
+        else
+        {
+            $sql = "SELECT * FROM prisoners WHERE Prison ='".$data['Prison']."'";
+        }
 
-        $sql = "SELECT * FROM prisoners WHERE Prison ='".$data['Prison']."' ORDER BY Id ASC";
+        if($data['Crime'] == '')
+        {
+            $sql = $sql;
+        }
+        else
+        {
+            if($sql == '')
+            {
+                $sql = "SELECT * FROM prisoners WHERE Crime ='".$data['Crime']."'";
+            }
+            else
+            {
+                $sql = $sql . " AND Crime ='".$data['Crime']."'";
+            }
+        }
 
+        if($data['SentenceDate'] == '')
+        {
+            $sql = $sql;
+        }
+        else
+        {
+            if($sql == '')
+            {
+                $sql = "SELECT * FROM prisoners WHERE SentenceDate ='".$data['SentenceDate']."'";
+            }
+            else
+            {
+                $sql = $sql . " AND SentenceDate ='".$data['SentenceDate']."'";
+            }
+        }
 
+        if($data['ReleaseDate'] == '')
+        {
+            $sql = $sql;
+        }
+        else
+        {
+            if($sql == '')
+            {
+                $sql = "SELECT * FROM prisoners WHERE ReleaseDate ='".$data['ReleaseDate']."'";
+            }
+            else
+            {
+                $sql = $sql . " AND ReleaseDate ='".$data['ReleaseDate']."'";
+            }
+        }
+
+        if($sql == '')
+        {
+            $sql = "SELECT * FROM prisoners ORDER BY Id ASC";
+        }
+        $file = fopen('query.txt', 'w');
+        fwrite($file, 'SQL : '.$sql."\n");
+        fclose($file);
+        
         $query = $this->db->query($sql);
         $prisoners = $query->result_array();
-
-
         return $prisoners;
-
     }
 }
